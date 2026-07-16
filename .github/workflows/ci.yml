@@ -25,5 +25,12 @@ jobs:
       - name: Build docker image
         run: docker build -t jigar1311/taskflow:latest .
 
+      - name: Scan docker image with trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with: 
+          image-ref: jigar1311/taskflow:latest
+          format: table
+          exit-code: 0
+
       - name: push docker image
         run: docker push jigar1311/taskflow:latest
