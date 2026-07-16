@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Task - TaskFlow{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <div class="form-card-header">
+        <h2>Create New Task</h2>
+    </div>
+    <div class="form-card-body">
+        <form action="{{ url_for('main.create_task') }}" method="POST" class="task-form">
+            <!-- Title -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label for="title">Task Title <span style="color: var(--priority-high);">*</span></label>
+                <input type="text" name="title" id="title" class="form-input" placeholder="What needs to be done?" value="{{ title or '' }}" required maxlength="100">
+            </div>
+
+            <!-- Description -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" class="form-input" placeholder="Add more details about this task...">{{ description or '' }}</textarea>
+            </div>
+
+            <!-- Priority & Due Date (Inline row on large screen) -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select name="priority" id="priority" class="form-select">
+                        <option value="Low" {% if priority == 'Low' %}selected{% endif %}>Low</option>
+                        <option value="Medium" {% if priority == 'Medium' or not priority %}selected{% endif %}>Medium</option>
+                        <option value="High" {% if priority == 'High' %}selected{% endif %}>High</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="due_date">Due Date</label>
+                    <input type="date" name="due_date" id="due_date" class="form-input" value="{{ due_date or '' }}">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-action-group">
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5v14"/>
+                    </svg>
+                    Create Task
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
