@@ -596,6 +596,24 @@ Remove Container
 docker rm taskflow-container
 ```
 
+Run Docker Container
+
+```bash
+docker run -d -p 5000:5000 --name taskflow-container taskflow:v1
+```
+
+Port Mapping
+
+```bash
+docker run -p 5000:5000 taskflow:v1
+```
+
+Explanation
+
+```
+Host Port (5000)  →  Container Port (5000)
+```
+
 ---
 
 ## Docker Hub Commands
@@ -656,6 +674,24 @@ Delete Resources
 
 ```bash
 kubectl delete -f kubernetes/
+```
+
+Port Forward Service
+
+```bash
+kubectl port-forward service/taskflow-service 5000:80 -n taskflow
+```
+
+OR (Port Forward Pod)
+
+```bash
+kubectl port-forward pod/<pod-name> 5000:5000 -n taskflow
+```
+
+Access Application
+
+```
+http://localhost:5000
 ```
 
 ---
